@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title - Grafilogika játék</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
@@ -11,18 +11,18 @@
     <body>
         <header>
             <div class="content-wrapper">
-                <div class="float-left">
+                @*<div class="float-left">
                     <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-                </div>
+                </div>*@
                 <div class="float-right">
-                    <section id="login">
+                    @*<section id="login">
                         @Html.Partial("_LoginPartial")
-                    </section>
+                    </section>*@
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Kezdőlap", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Játékok keresése", "Browse", "Browse")</li>
+                            <li>@Html.ActionLink("Játék Feltöltése", "Upload", "Upload")</li>
                         </ul>
                     </nav>
                 </div>
@@ -36,9 +36,9 @@
         </div>
         <footer>
             <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
+                @*<div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Grafilogika játék</p>
+                </div>*@
             </div>
         </footer>
 
