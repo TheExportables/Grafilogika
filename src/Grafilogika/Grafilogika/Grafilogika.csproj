@@ -177,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\FieldModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +293,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Upload\Upload.cshtml" />
     <Content Include="Views\Browse\Browse.cshtml" />
+    <Content Include="Views\Upload\CreateOwnGame.cshtml" />
+    <Content Include="Views\Upload\UploadGame.cshtml" />
+    <Content Include="Views\Upload\UploadGameProcess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

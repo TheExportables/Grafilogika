@@ -1,0 +1,26 @@
+﻿@model Grafilogika.Models.FieldModel
+@{
+    ViewBag.Title = "CreateOwnGame";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    @using (Html.BeginForm("CreateOwnGameProcess", "Upload"))
+    {
+        <label>Sor</label>
+        @Html.TextBoxFor(m => m.Rows, new { @type = "number" })
+        <label>Oszlop</label>
+        @Html.TextBoxFor(m => m.Columns, new { @type = "number" })
+        <input type="submit" value="OK" />
+    }
+    <div>
+
+    </div>
+</body>
+</html>

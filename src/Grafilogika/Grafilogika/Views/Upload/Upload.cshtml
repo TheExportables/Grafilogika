@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Upload";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div style="position: absolute; top: 40%; left: 42.5%; right: 42.5%">
+        <button onclick="location.href='@Url.Action("CreateOwnGame", "Upload")'">Saját kép készítése</button>
+    </div>
+    <div style="position: absolute; top: 50%; left: 42.5%; right: 42.5%">
+        <button onclick="location.href='@Url.Action("UploadGame", "Upload")'">Kész kép feltöltése</button>
+    </div>
+</body>
+</html>
