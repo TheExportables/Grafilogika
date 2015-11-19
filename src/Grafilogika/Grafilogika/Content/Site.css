@@ -451,16 +451,33 @@ textarea {
     input[type="submit"],
     input[type="button"],
     button {
-        background-color: #d3dce0;
+        /*background-color: #d3dce0;*/
         border: 1px solid #787878;
         cursor: pointer;
         font-size: 1.2em;
         font-weight: 600;
-        padding: 7px;
-        margin-right: 8px;
+        padding: 1vmin;
+        margin: 0px 0px 0px 0px;
         width: auto;
     }
 
+/* gametable button's style classes */
+.black {
+    background-color:black;
+    border: 1px solid;
+    cursor: pointer;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.gamecell {
+    border: 1px solid;
+    cursor: pointer;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+/*
     td input[type="submit"],
     td input[type="button"],
     td button {
@@ -468,7 +485,7 @@ textarea {
         padding: 4px;
         margin-right: 4px;
     }
-
+*/
 /* info and errors */
 .message-info {
     border: 1px solid;
@@ -526,11 +543,12 @@ input[type="checkbox"].input-validation-error {
 
 /* tables
 ----------------------------------------------------------*/
-table {
+table.game {
     border-collapse: collapse;
-    border-spacing: 0;
-    margin-top: 0.75em;
+    border-spacing: 0px 0px;
     border: 0 none;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 th {
@@ -576,15 +594,21 @@ th {
         content: '▼';
     }
 
-td {
-    padding: 0.25em 2em 0.25em 0em;
+td.game {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     border: 0 none;
 }
 
-tr.pager td {
-    padding: 0 0.25em 0 0;
+tr.game {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
+tr.pager td {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
 
 /********************
 *   Mobile Styles   *
