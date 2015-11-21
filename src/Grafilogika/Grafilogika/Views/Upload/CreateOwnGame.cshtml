@@ -9,18 +9,22 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
+    <script type="text/javascript" src="~/Scripts/OwnScripts/CreateGameTable.js"></script>
 </head>
-<body>
-    @using (Html.BeginForm("CreateOwnGameProcess", "Upload"))
+<body style="margin: 0px; padding: 0px;">
+    @using (Html.BeginForm("CreateOwnGame", "Upload"))
     {
-        <label>Sor</label>
-        @Html.TextBoxFor(m => m.Rows, new { @type = "number" })
-        <label>Oszlop</label>
-        @Html.TextBoxFor(m => m.Columns, new { @type = "number" })
-        <input type="submit" value="OK" />
+        <label>Sorok száma</label>
+        @Html.TextBoxFor(m => m.Rows, new { @type = "number", @id="rows" })
+        <label>Oszlopok száma</label>
+        @Html.TextBoxFor(m => m.Columns, new { @type = "number", @id="cols" })
+        <input id="okbtn" type="button" value="Generálás" onclick="generateTable()"/>
+        <input id="sendbtn" type="submit" value="Pálya beküldése" onclick="sendGame()"/>
     }
     <div>
+        <table id="gametable" class="game">
 
+        </table>
     </div>
 </body>
 </html>

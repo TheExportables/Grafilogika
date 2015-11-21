@@ -20,7 +20,7 @@ namespace Grafilogika.Controllers
             //if gameSolution.Equals(adatbázisban levő megoldás) akkor
             //return faszavagy; else return elbasztad.
 
-            //adatbázisba mentés a hibát, wint majd az értékeléskor adjuk hozzá
+            //adatbázisba mentés a hibát, wint majd az értékeléskor adjuk hozzá(játékhoz és játékoshoz is, kivéve ha guest)
 
             return View();
         }
