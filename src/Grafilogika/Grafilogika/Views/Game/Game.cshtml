@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Game";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/OwnScripts/ShowGame.js"></script>
+    <script type="text/javascript" src="~/Scripts/OwnScripts/CreateGameTable.js"></script>
+</head>
+<body>
+    <div>
+        <input type="hidden" value="@Session["GameString"]" id="gameString" />
+        <table id="gametable" class="game" style="margin: 0px; padding: 0px;">
+
+        </table>
+    </div>
+    <div>
+        <input id="sendbtn" type="submit" value="Megoldás beküldése" onclick="sendGame()" />
+    </div>
+</body>
+</html>

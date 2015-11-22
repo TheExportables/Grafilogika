@@ -6,9 +6,9 @@ using System.Web;
 
 namespace Grafilogika
 {
-    public class DBManager
+    public static class DBManager
     {
-        public void AddGame(string name, string uploader, string game)
+        public static void AddGame(string name, string uploader, string game)
         {
             Games addThis = new Games();
 
@@ -26,7 +26,7 @@ namespace Grafilogika
         }
 
         //EZ LEHET NEM IS KELL
-        public void AddUser(string name, string pw, int isadmin)
+        public static void AddUser(string name, string pw, int isadmin)
         {
             Users addThis = new Users();
 
@@ -45,7 +45,7 @@ namespace Grafilogika
         }
 
         #region GameQuery
-        public List<Games> GetGamesByUploader(string uploader)
+        public static List<Games> GetGamesByUploader(string uploader)
         {
             List<Games> result = null;
 
@@ -59,7 +59,7 @@ namespace Grafilogika
             return result;
         }
 
-        public Games GetGameByName(string name)
+        public static Games GetGameByName(string name)
         {
             Games result = null;
 
@@ -73,7 +73,7 @@ namespace Grafilogika
             return result;
         }
 
-        public List<Games> GetAllGames()
+        public static List<Games> GetAllGames()
         {
             List<Games> result = null;
 
@@ -88,7 +88,7 @@ namespace Grafilogika
         #endregion
 
         #region UserQuery
-        public Users GetUserByName(string name)
+        public static Users GetUserByName(string name)
         {
             Users result = null;
 

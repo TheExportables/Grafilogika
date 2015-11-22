@@ -14,23 +14,61 @@ namespace Grafilogika.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckGameSolution(String gameName, String gameSolution) {
+        public ActionResult CheckGameSolution(String gameName, String gameSolution, String userName) {
 
-            //TODO játékok adatbázisból get a gameName-el egyenlő nevűt, aztán 
-            //if gameSolution.Equals(adatbázisban levő megoldás) akkor
-            //return faszavagy; else return elbasztad.
-
-            //adatbázisba mentés a hibát, wint majd az értékeléskor adjuk hozzá(játékhoz és játékoshoz is, kivéve ha guest)
-
-            return View();
+            var game = DBManager.GetGameByName(gameName);
+            var user = DBManager.GetUserByName(userName);
+            if (gameSolution.Equals(game.Game))
+                return View(); //TODO Wineltél
+            else {
+                game.Mistakes++;
+                user.Mistakes++;
+                //TODO Update
+                return View(); //TODO Elrontottad
+            }
         }
 
         [HttpPost]
-        public ActionResult PostGameRating(int rating) {
+        public ActionResult CheckGameSolution(String gameName, String gameSolution) {
 
-            //TODO adatbázisból getRating és getWins. ++Wins; Rating+=rating; Rating/=Wins;
+            var game = DBManager.GetGameByName(gameName);
+            if (gameSolution.Equals(game.Game))
+                return View(); //TODO Wineltél
+            else {
+                game.Mistakes++;
 
-            return View();
+                return View(); //TODO Elrontottad
+            }
+        }
+
+        [HttpPost]
+        public ActionResult PostGameRating(String gameName, int rating, String userName) {
+
+            var game = DBManager.GetGameByName(gameName);
+            var user = DBManager.GetUserByName(userName);
+
+            game.Wins++;
+            game.Rating += rating;
+            game.Rating /= game.Wins;
+            //TODO update game
+
+            user.Wins++;
+            //TODO update user
+
+            return View(); //TODO thxforratingbics
+        }
+
+        [HttpPost]
+        public ActionResult PostGameRating(String gameName, int rating) {
+
+            var game = DBManager.GetGameByName(gameName);
+
+            game.Wins++;
+            game.Rating += rating;
+            game.Rating /= game.Wins;
+            //TODO update game
+
+            return View(); //TODO thxforratingbics
         }
     }
 }

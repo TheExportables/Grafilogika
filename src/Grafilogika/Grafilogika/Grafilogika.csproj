@@ -295,6 +295,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\OwnScripts\CreateGameTable.js" />
+    <Content Include="Scripts\OwnScripts\ShowGame.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -339,10 +340,10 @@
     <Content Include="Views\Upload\CreateOwnGame.cshtml" />
     <Content Include="Views\Upload\UploadGame.cshtml" />
     <Content Include="Views\Upload\UploadGameProcess.cshtml" />
+    <Content Include="Views\Game\Game.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Game\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -82,7 +82,7 @@ namespace Grafilogika.Controllers
             using (var dbCtx = new GrafilogikaDBEntities())
             {
                 Games addthis = new Games();
-                addthis.Name = "Testgame";
+                addthis.Name = "GameTest";
                 addthis.Uploader = "Tarotth";
                 addthis.Game = "1234";
                 dbCtx.Games.Add(addthis);
