@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grafilogika.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -74,11 +75,22 @@ namespace Grafilogika.Controllers
                     game.Append(";");
                     ++counter;
                 }
-            }          
-            
+            }
+
             //TODO adatbázisba mentés
             //feltöltő user neve, Játék neve, win/lose/rating default =0, StringBuilder game változó toString
-            
+
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                Games addthis = new Games();
+                addthis.Name = "Testgame";
+                addthis.Uploader = "Tarotth";
+                addthis.Game = "1234";
+                dbCtx.Games.Add(addthis);
+
+                dbCtx.SaveChanges();
+            }
+
             if (!Directory.Exists(Server.MapPath("~/Upload"))) {
                 Directory.Delete(Server.MapPath("~/Upload"));
             }
