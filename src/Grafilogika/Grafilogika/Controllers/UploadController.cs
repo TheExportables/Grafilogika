@@ -34,6 +34,7 @@ namespace Grafilogika.Controllers
         [HttpPost]
         public ActionResult UploadGameProcess(HttpPostedFileBase file)
         {
+            StringBuilder game = null;
             if (file != null && file.ContentLength > 0) {
                 var fileName = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Upload/"), fileName);
@@ -46,7 +47,7 @@ namespace Grafilogika.Controllers
                 int length = 0;
                 int counter = 1;
                 string line;
-                StringBuilder game = new StringBuilder();
+                game = new StringBuilder();
 
                 System.IO.StreamReader txtfile = new System.IO.StreamReader(path);
                 while ((line = txtfile.ReadLine()) != null) {
@@ -74,15 +75,14 @@ namespace Grafilogika.Controllers
                     game.Append(";");
                     ++counter;
                 }
-            }          
-            
-            //TODO adatbázisba mentés
-            //feltöltő user neve, Játék neve, win/lose/rating default =0, StringBuilder game változó toString
-            
-            if (!Directory.Exists(Server.MapPath("~/Upload"))) {
-                Directory.Delete(Server.MapPath("~/Upload"));
-            }
+                //TODO adatbázisba mentés
+                //feltöltő user neve, Játék neve, win/lose/rating default =0, StringBuilder game változó toString
 
+                if (!Directory.Exists(Server.MapPath("~/Upload"))) {
+                    Directory.Delete(Server.MapPath("~/Upload"));
+                }
+            }
+            
             return View();
         }
     }
