@@ -1,6 +1,10 @@
-﻿@model IEnumerable<Grafilogika.Models.Games>
+﻿@model Grafilogika.Models.ProfileModel
 @{
     ViewBag.Title = "MyProfile";
+}
+    @section scripts {
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqx-all.js"></script>
 }
     @section featured {
         <section class="featured">
@@ -20,64 +24,112 @@
 
     <html>
     <head>
+        <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+        <script src="~/Scripts/BootStrap/bootstrap.js"></script>
+        <script src="~/Scripts/OwnScripts/ErrorDisplaying.js"></script>
         <meta name="viewport" content="width=device-width" />
         <title></title>
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $('#mainSplitter').jqxSplitter({ width: '100%', height: 500, panels: [{ size: 600, collapsible: false }] });
+        });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#oldpw, #newpw, #cpw').keypress(function (e) {
+                    var regex = new RegExp("^[a-zA-Z0-9]+$");
+                    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+                    if (regex.test(str)) {
+                        return true;
+                    }
+
+                    e.preventDefault();
+                    return false;
+                });
+            });       
+        </script>
     </head>
     <body>
-        <div>
-            <table>
-                <tr>
-                    <td>
-                        Játék neve
-                    </td>
-                    <td>
-                        Jó megoldások
-                    </td>
-                    <td>
-                        Hibás megoldások
-                    </td>
-                    <td>
-                        Játék pontszáma
-                    </td>
-                </tr>
+        <div id='jqxWidget'>
+            <div id="mainSplitter">
+                <div style="overflow: auto">
+                    <table>
+                        <tr>
+                            <td>
+                                Játék neve
+                            </td>
+                            <td>
+                                Jó megoldások
+                            </td>
+                            <td>
+                                Hibás megoldások
+                            </td>
+                            <td>
+                                Játék pontszáma
+                            </td>
+                        </tr>
 
-                @foreach (var item in Model)
-                {
-                 <tr>
-                    @using (Html.BeginForm("DeleteGame", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                     <td>
-                         @item.Name
-                     </td>
-                     <td>
-                         @item.Wins
-                     </td>
-                     <td>
-                         @item.Mistakes
-                     </td>
-                     <td>
-                         @{
-                             double actualRating = 0;
-                             if (@item.Rating != null && @item.Wins != null && @item.Wins != 0)
-                             {
-                                 actualRating = Math.Round(((double)@item.Rating / (double)@item.Wins), 2);
-                             }
-                           }
-                           @actualRating
-                     </td>
-                        @Html.TextBox("Name", @item.Name, new { style = "display: none;" })
-                        @Html.TextBox("Uploader", @item.Uploader, new { style = "display: none;" })
-                        @Html.TextBox("Wins", @item.Wins, new { style = "display: none;" })
-                        @Html.TextBox("Mistakes", @item.Mistakes, new { style = "display: none;" })
-                        @Html.TextBox("Rating", @item.Rating, new { style = "display: none;" })
-                        @Html.TextBox("Game", @item.Game, new { style = "display: none;" })
-                     <td>
-                         <input type="submit" value="Törlés" />
-                     </td>
-                     }
-                 </tr>
-                }
-            </table>
-        </div>
+                        @foreach (var item in Model.games)
+                        {
+                            <tr>
+                                @using (Html.BeginForm("DeleteGame", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <td>
+                                        @item.Name
+                                    </td>
+                                    <td>
+                                        @item.Wins
+                                    </td>
+                                    <td>
+                                        @item.Mistakes
+                                    </td>
+                                    <td>
+                                        @{
+                                            double actualRating = 0;
+                                            if (@item.Rating != null && @item.Wins != null && @item.Wins != 0)
+                                            {
+                                                actualRating = Math.Round(((double)@item.Rating / (double)@item.Wins), 2);
+                                            }
+                                        }
+                                        @actualRating
+                                    </td>
+                                    @Html.TextBox("Name", @item.Name, new { style = "display: none;" })
+                                    @Html.TextBox("Uploader", @item.Uploader, new { style = "display: none;" })
+                                    @Html.TextBox("Wins", @item.Wins, new { style = "display: none;" })
+                                    @Html.TextBox("Mistakes", @item.Mistakes, new { style = "display: none;" })
+                                    @Html.TextBox("Rating", @item.Rating, new { style = "display: none;" })
+                                    @Html.TextBox("Game", @item.Game, new { style = "display: none;" })
+                                    <td>
+                                        <input type="submit" value="Törlés" />
+                                    </td>
+                                  }
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div style="overflow: auto">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+                        <fieldset>
+                            <legend>Passwordchange Form</legend>
+                            <ol>
+                                <li>
+                                    @Html.LabelFor(m => m.pwChange.OldPassword)
+                                    @Html.PasswordFor(m => m.pwChange.OldPassword, new { maxlength = "100", id= "oldpw" })
+                                </li>
+                                <li>
+                                    @Html.LabelFor(m => m.pwChange.NewPassword)
+                                    @Html.PasswordFor(m => m.pwChange.NewPassword, new { maxlength = "100", id = "newpw" })
+                                </li>
+                                <li>
+                                    @Html.LabelFor(m => m.pwChange.ConfirmPassword)
+                                    @Html.PasswordFor(m => m.pwChange.ConfirmPassword, new { maxlength = "100", id = "cpw" })
+                                </li>
+                            </ol>
+                            <input type="submit" onclick="changePassword()" value="Jelszó megváltoztatása" />
+                        </fieldset>
+                </div>
+            </div>
+        </div> 
     </body>
 </html>

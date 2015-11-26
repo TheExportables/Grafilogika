@@ -34,17 +34,17 @@ namespace Grafilogika.Models {
     public class LocalPasswordModel {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Jelenlegi jelszó")]
         public string OldPassword { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Új jelszó")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
+        [Display(Name = "Új jelszó megerősítés")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
@@ -63,9 +63,16 @@ namespace Grafilogika.Models {
         public bool RememberMe { get; set; }
     }
 
+    public class ProfileModel
+    {
+        public IEnumerable<Grafilogika.Models.Games> games{ get; set; }
+        public LocalPasswordModel pwChange { get; set; }
+    }
+
     public class RegisterModel {
         [Required]
         [Display(Name = "Felhasználónév")]
+        [StringLength(100, ErrorMessage = "Maximum 100 karakter hosszú lehet!")]
         public string UserName { get; set; }
 
         [Required]
@@ -78,6 +85,12 @@ namespace Grafilogika.Models {
         [Display(Name = "Jelszó megerősítés")]
         [Compare("Password", ErrorMessage = "A két jelszó nem egyezik!")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "E-mail cím")]
+        [StringLength(100, ErrorMessage = "Maximum 100 karakter hosszú lehet!")]
+        [EmailAddress]
+        public string Email { get; set; }
     }
 
     public class ExternalLogin {

@@ -14,3 +14,28 @@
                                     );
     jQuery(".alert").show();
 }
+
+function changePassword() {
+    var oldPw = $("#oldpw").val();
+    var newPw = $("#newpw").val();
+    var cPw = $("#cpw").val();
+    if (newPw != cPw)
+    {
+        alert("A megadott jelszavak nem egyeznek.");
+        return;
+    }
+    $.ajax({
+        url: '/Home/ChangePassword',
+        data: { 'OldPassword': oldPw, 'NewPassword': newPw, 'ConfirmPassword': cPw },
+        type: 'POST',
+        success: function (result) {
+            alert(result);
+            if (result.indexOf("sikeresen") > -1)
+            {
+                $("#oldpw").val("");
+                $("#newpw").val("");
+                $("#cpw").val("");
+            }
+        }
+    });
+}

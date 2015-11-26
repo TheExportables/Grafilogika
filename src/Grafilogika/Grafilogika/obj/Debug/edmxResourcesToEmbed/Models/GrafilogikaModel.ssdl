@@ -20,6 +20,8 @@
     <Property Name="Wins" Type="int" />
     <Property Name="Mistakes" Type="int" />
     <Property Name="Isadmin" Type="int" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Isverified" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_Games_Users">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />

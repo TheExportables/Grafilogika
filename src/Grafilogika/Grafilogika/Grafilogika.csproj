@@ -578,6 +578,10 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\MyProfile.cshtml" />
     <Content Include="Views\Home\GuestProfile.cshtml" />
+    <Content Include="Views\Home\VerificationSent.cshtml" />
+    <Content Include="Views\Home\Verify.cshtml" />
+    <Content Include="Views\Home\_ChangePasswordResult.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

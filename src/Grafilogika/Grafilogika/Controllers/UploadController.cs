@@ -33,7 +33,7 @@ namespace Grafilogika.Controllers
             var everyGame = DBManager.GetAllGames();
             foreach (var item in everyGame)
             {
-                if (item.Name == gameName)
+                if (item.Name.Equals(gameName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return Json("Ezzel a névvel már létezik játék. Válassz másik nevet!");
                 }
@@ -153,7 +153,7 @@ namespace Grafilogika.Controllers
                     var everyGame = DBManager.GetAllGames();
                     foreach (var item in everyGame)
                     {
-                        if (item.Name == gameName)
+                        if (item.Name.Equals(gameName, StringComparison.InvariantCultureIgnoreCase))
                         {
                             txtfile.Close();
                             if (!Directory.Exists(Server.MapPath("~/Upload")))

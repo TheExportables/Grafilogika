@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GrafilogikaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GrafilogikaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Games">
           <Key>
             <PropertyRef Name="Name" />
@@ -25,6 +25,8 @@
           <Property Name="Wins" Type="int" />
           <Property Name="Mistakes" Type="int" />
           <Property Name="Isadmin" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Isverified" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Games_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -46,8 +48,7 @@
             <End Role="Games" EntitySet="Games" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GrafilogikaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -73,6 +74,8 @@
           <Property Name="Mistakes" Type="Int32" />
           <Property Name="Isadmin" Type="Int32" />
           <NavigationProperty Name="Games" Relationship="Self.FK_Games_Users" FromRole="Users" ToRole="Games" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Isverified" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Games_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -115,6 +118,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GrafilogikaDBModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Isverified" ColumnName="Isverified" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Wins" ColumnName="Wins" />

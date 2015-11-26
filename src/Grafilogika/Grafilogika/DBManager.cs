@@ -34,7 +34,7 @@ namespace Grafilogika
             }
         }
 
-        public static void AddUser(string name, string pw, int isadmin)
+        public static void AddUser(string name, string pw, int isadmin, string email, int isverified)
         {
             Users addThis = new Users();
 
@@ -45,6 +45,8 @@ namespace Grafilogika
                 addThis.Wins = 0;
                 addThis.Mistakes = 0;
                 addThis.Isadmin = isadmin;
+                addThis.Email = email;
+                addThis.Isverified = isverified;
                 dbCtx.Users.Add(addThis);
 
                 dbCtx.SaveChanges();
@@ -257,6 +259,46 @@ namespace Grafilogika
 
                     throw;
                 }
+            }
+        }
+
+        public static void UpdateUserVerification(string userName)
+        {
+            try
+            {
+                using (var dbCtx = new GrafilogikaDBEntities())
+                {
+                    var result = (from u in dbCtx.Users
+                                  where u.Name == userName
+                                  select u).First();
+                    result.Isverified++;
+                    dbCtx.Entry(result).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public static void UpdateUserPassword(string userName, string newPassword)
+        {
+            try
+            {
+                using (var dbCtx = new GrafilogikaDBEntities())
+                {
+                    var result = (from u in dbCtx.Users
+                                  where u.Name == userName
+                                  select u).First();
+                    result.Password = newPassword;
+                    dbCtx.Entry(result).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 

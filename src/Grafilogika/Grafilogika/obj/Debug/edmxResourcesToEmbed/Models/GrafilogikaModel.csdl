@@ -22,6 +22,8 @@
     <Property Name="Mistakes" Type="Int32" />
     <Property Name="Isadmin" Type="Int32" />
     <NavigationProperty Name="Games" Relationship="Self.FK_Games_Users" FromRole="Users" ToRole="Games" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Isverified" Type="Int32" Nullable="false" />
   </EntityType>
   <Association Name="FK_Games_Users">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />

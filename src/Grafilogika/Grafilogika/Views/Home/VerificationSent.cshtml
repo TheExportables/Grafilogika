@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Verifikációs e-mail";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div style="display:flex;justify-content:center;align-items:center;">
+        <p>
+            Az általad regisztrációkor megadott e-mail címre küldtünk egy levelet, melyben a linkre kattintva aktiválhatod a felhasználódat, és később <br />
+            ide kapsz választ, ha elfelejtett jelszót szeretnél visszakapni. Verifikáció után térj vissza a @Html.ActionLink("bejelentkező oldalra", "Login", "Home") és kezdheted a játékot!
+        </p>
+    </div>
+</body>
+</html>

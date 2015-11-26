@@ -24,6 +24,8 @@ namespace Grafilogika.Models
         public Nullable<int> Wins { get; set; }
         public Nullable<int> Mistakes { get; set; }
         public Nullable<int> Isadmin { get; set; }
+        public string Email { get; set; }
+        public int Isverified { get; set; }
     
         public virtual ICollection<Games> Games { get; set; }
     }

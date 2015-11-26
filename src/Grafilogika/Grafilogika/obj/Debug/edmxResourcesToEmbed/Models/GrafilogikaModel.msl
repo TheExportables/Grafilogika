@@ -16,6 +16,8 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="GrafilogikaDBModel.Users">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Isverified" ColumnName="Isverified" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Wins" ColumnName="Wins" />

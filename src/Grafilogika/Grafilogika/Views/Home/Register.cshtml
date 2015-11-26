@@ -19,6 +19,17 @@
             e.preventDefault();
             return false;
         });
+        $('#Email').keypress(function (e) {
+            var regex = new RegExp("[^\^ˇ§'\"+,()\{\}\\\/=%!?;<>:#$*]");
+            //var regex = new RegExp("[A-Z0-9._%-]+@@[A-Z0-9.-]+\.[A-Z]{2,4}");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                return true;
+            }
+
+            e.preventDefault();
+            return false;
+        });
     });
 </script>
 @using (Html.BeginForm()) {
@@ -39,6 +50,10 @@
             <li>
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword, new { maxlength = "100" })
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { maxlength = "100" })
             </li>
         </ol>
         <input type="submit" value="Regisztráció" />
