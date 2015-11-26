@@ -461,6 +461,13 @@ textarea {
         width: auto;
     }
 
+        button:disabled {
+            cursor: default;
+            pointer-events: none;
+            color: #c0c0c0;
+            background-color: #ffffff;
+        }
+
 /* gametable button's style classes */
 .black {
     background-color:black;
@@ -481,6 +488,7 @@ pre {
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
 }
+
 /*
     td input[type="submit"],
     td input[type="button"],

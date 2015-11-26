@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     var gameString = $("#gameString").val();
-    //var gameString = "101;010;101;";
     var gameRows = gameString.split(";");
     var cols = gameRows[0].length;
     var rows = gameRows.length-1;
