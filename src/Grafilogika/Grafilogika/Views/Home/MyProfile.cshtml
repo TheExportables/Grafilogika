@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Grafilogika.Models.Games>
+@{
+    ViewBag.Title = "MyProfile";
+}
+    @section featured {
+        <section class="featured">
+            <div class="content-wrapper">
+                <hgroup class="title">
+                    <h1>Profilom</h1>
+                </hgroup>
+                @{ if ((bool)@Session["Isadmin"])
+                    {
+                        <div style="color:white;display:flex;justify-content:flex-end;align-items:flex-end;">Admin felhasználó</div>
+                    }
+                }
+            </div>
+        </section>
+    }
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title></title>
+    </head>
+    <body>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        Játék neve
+                    </td>
+                    <td>
+                        Jó megoldások
+                    </td>
+                    <td>
+                        Hibás megoldások
+                    </td>
+                    <td>
+                        Játék pontszáma
+                    </td>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                 <tr>
+                    @using (Html.BeginForm("DeleteGame", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                     <td>
+                         @item.Name
+                     </td>
+                     <td>
+                         @item.Wins
+                     </td>
+                     <td>
+                         @item.Mistakes
+                     </td>
+                     <td>
+                         @{
+                             double actualRating = 0;
+                             if (@item.Rating != null && @item.Wins != null && @item.Wins != 0)
+                             {
+                                 actualRating = Math.Round(((double)@item.Rating / (double)@item.Wins), 2);
+                             }
+                           }
+                           @actualRating
+                     </td>
+                        @Html.TextBox("Name", @item.Name, new { style = "display: none;" })
+                        @Html.TextBox("Uploader", @item.Uploader, new { style = "display: none;" })
+                        @Html.TextBox("Wins", @item.Wins, new { style = "display: none;" })
+                        @Html.TextBox("Mistakes", @item.Mistakes, new { style = "display: none;" })
+                        @Html.TextBox("Rating", @item.Rating, new { style = "display: none;" })
+                        @Html.TextBox("Game", @item.Game, new { style = "display: none;" })
+                     <td>
+                         <input type="submit" value="Törlés" />
+                     </td>
+                     }
+                 </tr>
+                }
+            </table>
+        </div>
+    </body>
+</html>

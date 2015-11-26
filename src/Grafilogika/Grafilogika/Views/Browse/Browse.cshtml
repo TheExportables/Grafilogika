@@ -1,17 +1,105 @@
-﻿@{
-    ViewBag.Title = "Browse";
-}
+﻿@model IEnumerable<Grafilogika.Models.Games>
+    @{
+        ViewBag.Title = "Browse";
+    }
+    @section featured {
+        <section class="featured">
+            <div class="content-wrapper">
+                <hgroup class="title">
+                    <h1>Játékok keresése</h1>
+                </hgroup>
+            </div>
+        </section>
+    }
+   @* @section scripts {
+        <script type="text/javascript" src="~/Scripts/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqx-all.js"></script>
+    }*@
+    <!DOCTYPE html>
 
-<!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title></title>
+        <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+        @*<script type="text/javascript" src="~/Scripts/jqwidgets/jqxcore.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxdata.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxbuttons.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxscrollbar.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxlistbox.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxdropdownlist.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxmenu.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxgrid.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxgrid.filter.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxgrid.sort.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxgrid.selection.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxpanel.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxcalendar.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxdatetimeinput.js"></script>
+        <script type="text/javascript" src="~/Scripts/jqwidgets/jqxcheckbox.js"></script>
+        <script type="text/javascript" src="~/Scripts/OwnScripts/CreateBrowseTable.js"></script>*@
+    </head>
+    @*<body>
+        <div id="browseList">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
+        </div>
+    </body>*@
+    <body>
+       <div>
+        <table>
+            <tr>
+                <td>
+                    Játék neve
+                </td>
+                <td>
+                    Feltöltő
+                </td>
+                <td>
+                    Játék pontszáma
+                </td>
+                <td></td>
+            </tr>
+
+          @foreach (var item in Model)
+            {
+
+                    <tr>
+                            @using (Html.BeginForm("LoadGame", "Browse", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <td>
+                                @item.Name
+                                @Html.TextBox("Name", @item.Name, new { style = "display: none;" })
+                                </td>
+                                <td>
+                                @item.Uploader
+                                @Html.TextBox("Uploader", @item.Uploader, new { style = "display: none;" })
+                                </td>
+                                @Html.TextBox("Wins", @item.Wins, new { style = "display: none;" })
+                                @Html.TextBox("Mistakes", @item.Mistakes, new { style = "display: none;" })
+                                <td>
+                                    @{
+                                        double actualRating = 0;
+                                        if (@item.Rating != null && @item.Wins != null && @item.Wins != 0)
+                                        {
+                                            actualRating = Math.Round(((double)@item.Rating / (double)@item.Wins), 2);
+                                        }
+                                    }
+                                @actualRating
+                                @Html.TextBox("Rating", @item.Rating, new { style = "display: none;" })
+                                </td>
+                                <td>
+                                @Html.TextBox("Game", @item.Game, new { style = "display: none;" })
+                                </td>
+                                <td>
+                                <input type="submit" value="Játék" />
+                                </td>
+                            }
+                    </tr>
+
+            }
+        </table>
     </div>
-</body>
+        <div>
+            </div>
+    </body>
 </html>

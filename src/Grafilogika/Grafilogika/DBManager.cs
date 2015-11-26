@@ -1,39 +1,46 @@
 ﻿using Grafilogika.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
 namespace Grafilogika
 {
-    public class DBManager
+    public static class DBManager
     {
-        public void AddGame(string name, string uploader, string game)
+        public static void AddGame(string name, string uploader, string game)
         {
             Games addThis = new Games();
 
             using (var dbCtx = new GrafilogikaDBEntities())
-            {              
-                addThis.Name = name;
-                addThis.Uploader = uploader;
-                addThis.Wins = 0;
-                addThis.Rating = 0;
-                addThis.Game = game;
-                dbCtx.Games.Add(addThis);
+            {
+                try
+                {
+                    addThis.Name = name;
+                    addThis.Uploader = uploader;
+                    addThis.Wins = 0;
+                    addThis.Rating = 0;
+                    addThis.Mistakes = 0;
+                    addThis.Game = game;
+                    dbCtx.Games.Add(addThis);
 
-                dbCtx.SaveChanges();
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
             }
         }
 
-        //EZ LEHET NEM IS KELL
-        public void AddUser(string name, string pw, int isadmin)
+        public static void AddUser(string name, string pw, int isadmin)
         {
             Users addThis = new Users();
 
             using (var dbCtx = new GrafilogikaDBEntities())
             {
                 addThis.Name = name;
-                //TODO pw mentés nem így
                 addThis.Password = pw;
                 addThis.Wins = 0;
                 addThis.Mistakes = 0;
@@ -45,61 +52,231 @@ namespace Grafilogika
         }
 
         #region GameQuery
-        public List<Games> GetGamesByUploader(string uploader)
+        public static List<Games> GetGamesByUploader(string uploader)
         {
-            List<Games> result = null;
-
-            using (var dbCtx = new GrafilogikaDBEntities())
+            try
             {
-                result = (from g in dbCtx.Games
-                         where g.Uploader == uploader
-                         select g).ToList();
+                using (var dbCtx = new GrafilogikaDBEntities())
+                {
+                    var result = (from g in dbCtx.Games
+                                  where g.Uploader == uploader
+                                  select g).ToList();
+
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
 
-            return result;
         }
 
-        public Games GetGameByName(string name)
+        public static Games GetGameByName(string name)
         {
-            Games result = null;
-
-            using (var dbCtx = new GrafilogikaDBEntities())
+            try
             {
-                result = (from g in dbCtx.Games
-                          where g.Name == name
-                          select g).First();
-            }
+                using (var dbCtx = new GrafilogikaDBEntities())
+                {
+                    var result = (from g in dbCtx.Games
+                                  where g.Name == name
+                                  select g).First();
 
-            return result;
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
-        public List<Games> GetAllGames()
+        public static List<Games> GetAllGames()
         {
-            List<Games> result = null;
-
             using (var dbCtx = new GrafilogikaDBEntities())
             {
-                result = (from g in dbCtx.Games
-                          select g).ToList();
+                return dbCtx.Games.ToList();
             }
+        }
 
-            return result;
+        public static void UpdateGameRating(Games game, int rating)
+        {
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                try
+                {
+                    if (game.Rating == null || game.Rating == 0)
+                    {
+                        game.Rating = rating;
+                    }
+                    else
+                    {
+                        game.Rating += rating;
+                    }
+                    dbCtx.Entry(game).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public static void UpdateGameMistakes(Games game)
+        {
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                try
+                {
+                    if(game.Mistakes == null)
+                    {
+                        game.Mistakes = 0;
+                    }
+                    game.Mistakes++;
+                    dbCtx.Entry(game).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public static void UpdateGameWins(Games game)
+        {
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                try
+                {
+                    if (game.Wins == null)
+                    {
+                        game.Wins = 0;
+                    }
+                    game.Wins++;
+                    dbCtx.Entry(game).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
         #endregion
 
         #region UserQuery
-        public Users GetUserByName(string name)
+        public static List<Users> GetAllUsers()
         {
-            Users result = null;
-
             using (var dbCtx = new GrafilogikaDBEntities())
             {
-                result = (from u in dbCtx.Users
-                          where u.Name == name
-                          select u).First();
+                return dbCtx.Users.ToList();
             }
+        }
 
-            return result;
+        public static Users GetUserByName(string name)
+        {
+            try
+            {
+                using (var dbCtx = new GrafilogikaDBEntities())
+                {
+                    var result = (from u in dbCtx.Users
+                                  where u.Name == name
+                                  select u).First();
+
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static Users GetUserByNameAndPassword(string name, string pswd)
+        {
+            try
+            {
+                using (var dbCtx = new GrafilogikaDBEntities())
+                {
+                    var result = (from u in dbCtx.Users
+                                  where u.Name == name && u.Password == pswd
+                                  select u).First();
+
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static void UpdateUserWins(Users usr)
+        {
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                try
+                {
+                    if (usr.Wins == null)
+                    {
+                        usr.Wins = 0;
+                    }
+                    usr.Wins++;
+                    dbCtx.Entry(usr).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public static void UpdateUserMistakes(Users usr)
+        {
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                try
+                {
+                    if (usr.Mistakes == null)
+                    {
+                        usr.Mistakes = 0;
+                    }
+                    usr.Mistakes++;
+                    dbCtx.Entry(usr).State = EntityState.Modified;
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public static void DeleteGameByName(string gameName)
+        {
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                try
+                {
+                    var result = (from g in dbCtx.Games
+                                  where g.Name == gameName
+                                  select g).First();
+                    dbCtx.Games.Remove(result);
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
         #endregion
 

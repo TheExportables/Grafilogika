@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    ViewBag.Title = "GuestProfile";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Vendég</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div style="display:flex;justify-content:center;align-items:center;">
+        <p>
+            Vendégként belépve sajnos nincsenek személyes statisztikák a győzelmekről és hibás megoldásokról, valamint játékot sem tudsz készíteni.<br/>
+            Ha szeretnéd, hogy ezek elérhetőek legyenek, @Html.ActionLink("jelentkezz ki", "Logout", "Home") a vendég felhasználóból és regisztrálj sajátot!
+        </p>
+    </div>
+</body>
+</html>

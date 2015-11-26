@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Game";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Játék: @Session["GameName"]</h1>
+            </hgroup>
+            <div style="color:white;display:flex;justify-content:flex-end;align-items:flex-end;">Feltöltő: @Session["UploaderName"]</div>
+        </div>
+    </section>
+}
+@section scripts {
+    <link rel="stylesheet" href="~/Content/jquery.fancybox.css" type="text/css" media="screen" />
+    <script src="~/Scripts/fancybox/jquery.fancybox.pack.js"></script>
+    <link rel="stylesheet" href="~/Content/jquery.fancybox-buttons.css" type="text/css" media="screen" />
+    <script src="~/Scripts/fancybox/jquery.fancybox-buttons.js"></script>
+    <script src="~/Scripts/fancybox/jquery.fancybox-media.js"></script>
+    <link rel="stylesheet" href="~/Content/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
+    <script src="~/Scripts/fancybox/jquery.fancybox-thumbs.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqx-all.js"></script>
+}
+<style type="text/css">
+    input[type="submit"]:disabled,
+    input[type="button"]:disabled,
+    button:disabled {
+            cursor: default;
+            pointer-events: none;
+            color: #c0c0c0;
+            background-color: #ffffff;
+        }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/BootStrap/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Scripts/OwnScripts/ShowGame.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqxrating.js"></script>
+</head>
+<body>
+    <div style="display:flex;justify-content:center;align-items:center;">
+
+        <input type="hidden" value="@Session["GameString"]" id="gameString" />
+        <table id="gametable" class="game" style="margin: 0px; padding: 0px;">
+
+        </table>
+        <label style="display:none" id="gamename">@Session["Gamename"]</label>
+        <label style="display:none" id="uploadername">@Session["Uploadername"]</label>
+    </div>
+    <div style="display:flex;justify-content:flex-end;align-items:flex-end;">
+        <input id="sendbtn" type="submit" value="Megoldás beküldése" onclick="checkSolution()" />
+    </div>
+</body>
+</html>

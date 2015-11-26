@@ -2,7 +2,15 @@
 @{
     ViewBag.Title = "CreateOwnGame";
 }
-
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Saját kép készítése</h1>
+            </hgroup>
+        </div>
+    </section>
+}
 <!DOCTYPE html>
 
 <html>
@@ -10,17 +18,35 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
     <script type="text/javascript" src="~/Scripts/OwnScripts/CreateGameTable.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#gamename').keypress(function (e) {
+                var regex = new RegExp("^[a-zA-Z0-9]+$");
+                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+                if (regex.test(str)) {
+                    return true;
+                }
+
+                e.preventDefault();
+                return false;
+            });
+        });
+
+          function handleChange(input) {
+            if (input.value < 0) input.value = 0;
+            if (input.value > 60) input.value = 60;
+          }
+    </script>
 </head>
 <body style="margin: 0px; padding: 0px;">
-    @using (Html.BeginForm("CreateOwnGame", "Upload"))
-    {
-        <label>Sorok száma</label>
-        @Html.TextBoxFor(m => m.Rows, new { @type = "number", @id="rows" })
+<label>Sorok száma</label>
+        @Html.TextBoxFor(m => m.Rows, new { @type = "number", @id="rows", @max = "60", @onchange="handleChange(this)" })
         <label>Oszlopok száma</label>
-        @Html.TextBoxFor(m => m.Columns, new { @type = "number", @id="cols" })
+        @Html.TextBoxFor(m => m.Columns, new { @type = "number", @id="cols", @max = "60", @onchange = "handleChange(this)" })
+        <input id="gamename" type="text" maxlength="100"/>
         <input id="okbtn" type="button" value="Generálás" onclick="generateTable()"/>
         <input id="sendbtn" type="submit" value="Pálya beküldése" onclick="sendGame()"/>
-    }
+
     <div>
         <table id="gametable" class="game">
 

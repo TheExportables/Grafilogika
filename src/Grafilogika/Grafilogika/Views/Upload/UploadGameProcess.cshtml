@@ -1,11 +1,20 @@
 ﻿@{
     ViewBag.Title = "UploadGameProcess";
 }
-
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Sikeres feltöltés</h1>
+            </hgroup>
+        </div>
+    </section>
+}
 <!DOCTYPE html>
 
 <html>
 <head>
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
     <meta name="viewport" content="width=device-width" />
     <title></title>
 </head>
@@ -13,5 +22,8 @@
     <div>
         A feltöltés sikeres volt!
     </div>
+    <div class="validationMessageContainer">
+    </div>
 </body>
 </html>
+<script>DisplayErrorMessage("@ViewBag.Error")</script>

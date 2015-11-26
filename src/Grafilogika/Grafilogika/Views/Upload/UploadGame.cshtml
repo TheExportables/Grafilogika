@@ -1,22 +1,77 @@
 ﻿@{
     ViewBag.Title = "UploadGame";
 }
-
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqx-all.js"></script>
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Kész kép feltöltése</h1>
+            </hgroup>
+        </div>
+    </section>
+}
 <!DOCTYPE html>
 
 <html>
 <head>
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/BootStrap/bootstrap.js"></script>
+    <script src="~/Scripts/OwnScripts/ErrorDisplaying.js"></script>
     <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/bootstrap/bootstrap.css")
     <title></title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#mainSplitter').jqxSplitter({ width: '100%', height: 500, panels: [{ size: 800, collapsible: false }] });
+
+            $('#textupload').keypress(function (e) {
+                var regex = new RegExp("^[a-zA-Z0-9]+$");
+                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+                if (regex.test(str)) {
+                    return true;
+                }
+
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
-    <div>
-        @using (Html.BeginForm("UploadGameProcess", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <input type="file" name="file" />
-            <input type="submit" name="Submit" id="Submit" value="Upload" />
-        }
-    
-    </div>
+    <div id='jqxWidget'>
+        <div id="mainSplitter">
+            <div>
+                <div>
+                    @using (Html.BeginForm("UploadGame", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <label>Fájl: </label><br />
+                        <input type="file" name="file" />
+                        <label>Játék neve: </label><br />
+                        <input type="text" name="gamename" id="textupload" maxlength="100" />
+                        <input type="submit" name="Submit" id="Submit" value="Upload" />
+                    }
+
+                </div>
+                <div class="validationMessageContainer">
+                </div>
+            </div>
+            <div style="overflow: auto">
+                Hogyan lehet egy rejtvényt fájlból feltölteni: <br/>
+                1. Szöveges dokumentumnak kell lennie *.txt kiterjesztéssel. <br/>
+                2. A rejtvény képét X és space/szóköz karakterekből kell kirajzolni. Ha bármi más karaktert tartalmaz a fájl, a játék feltöltése sikertelen lesz. <br/>
+                3. Csak négyzet és téglalap alakú feladvány tölthető fel, így ha a sorok hossza nem egyezik, a játék feltöltése sikertelen lesz. <br/>
+                Az oldal hibás megadás esetén mindig igyekszik jelezni, hogy a felölteni kívánt játék melyik feltételnek nem felelt meg, így az könnyen javítható <br/>
+            </div>
+        </div>
+    </div> 
 </body>
 </html>
+<script>
+    if("@ViewBag.Error" != null && "@ViewBag.Error" != ""){
+        DisplayErrorMessage("@ViewBag.Error")
+    }
+</script>

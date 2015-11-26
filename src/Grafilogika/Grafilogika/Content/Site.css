@@ -461,6 +461,16 @@ textarea {
         width: auto;
     }
 
+    input[type="submit"]:disabled,
+    input[type="button"]:disabled,
+    button:disabled {
+            cursor: default;
+            pointer-events: none;
+            color: #c0c0c0;
+            background-color: #ffffff;
+        }
+
+
 /* gametable button's style classes */
 .black {
     background-color:black;
@@ -477,6 +487,17 @@ textarea {
     margin: 0px 0px 0px 0px;
 }
 
+pre {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+.table_div a {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    text-decoration: none;
+}
 /*
     td input[type="submit"],
     td input[type="button"],

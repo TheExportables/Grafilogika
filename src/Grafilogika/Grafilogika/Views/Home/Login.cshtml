@@ -1,0 +1,62 @@
+﻿@model Grafilogika.Models.LoginModel
+
+@{
+    ViewBag.Title = "Bejelentkezés";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+<script src="~/Scripts/jquery-1.11.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#UserName, #PassWord').keypress(function (e) {
+            var regex = new RegExp("^[a-zA-Z0-9]+$");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            if (regex.test(str)) {
+                return true;
+            }
+
+            e.preventDefault();
+            return false;
+        });
+    });
+</script>
+<section id="loginForm">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Log in Form</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { id = "UserName", maxlength = "100" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { id = "PassWord", maxlength = "100" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </li>
+                <li>
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                </li>
+            </ol>
+            <input type="submit" value="Bejelentkezés" />
+        </fieldset>
+        <p>
+            @Html.ActionLink("Regisztrálj", "Register"), ha még nincs fiókod!            
+        </p>
+        <p>
+            @Html.ActionLink("Vagy játssz vendégként", "LoginGuest"), ha nem szeretnél regisztrálni és játékokat feltölteni!
+        </p>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

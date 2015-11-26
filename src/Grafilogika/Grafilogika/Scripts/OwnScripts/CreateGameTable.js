@@ -36,15 +36,25 @@ function sendGame() {
                 var button = $(this).find(":button");
                 if (button.hasClass("black"))
                     str += 1;
-                else
+                else if (button.hasClass("gamecell"))
                     str += 0;
             });
-            str += ";";
+            if (str.length > 0) {
+                str += ";";
+            }
         });
-        if (str.indexOf("1")!=(-1)) {
-            //TODO Tamás how to send a stringet controllernek mentésre
+        if (str.indexOf("1") != (-1)) {
+            var gname = document.getElementById("gamename").value;
+            $.ajax({
+                url: '/Upload/CreateOwnGameProcess',
+                data: { 'gameName': gname, 'gameSolution': str},
+                type: 'POST',
+                success: function (result) {
+                    alert(result);
+                }
+            });
             return;
         }
-    }
+    }else
     alert("Üres pályát nem lehet a szerverre küldeni!");
 }

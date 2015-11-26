@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Rating";
+}
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqx-all.js"></script>
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqwidgets/jqxrating.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Create jqxRating
+            $("#jqxRating").jqxRating({ width: 350, height: 35, theme: 'classic'});
+            $("#jqxRating").on('change', function (event) {
+                $("#rate").find('span').remove();
+                $("#rate").append('<span>' + event.value + '</span');
+            });
+        });
+    </script>
+</head>
+<body class='default'>
+    <div id='jqxWidget' style="font-size: 13px; font-family: Verdana;">
+        <div id='jqxRating'></div>
+        <div style='margin-top:10px;'>
+            <div style='float: left;'>Adott értékelés: </div> <div style='float: left;' id='rate'></div><br/>
+            <div style='float: left;'>Rejtvény eddigi átlagos értékelése: </div> <div style='float: left;' id='standard'></div><br />
+            <div style='float: left;'>Rejtvényen eddig elért összes győzelem száma: </div> <div style='float: left;' id='nrWins'></div><br />
+            <div style='float: left;'>Rejtvényre beküldött eddigi összes rossz megoldás száma: </div> <div style='float: left;' id='nrMistakes'></div><br />
+            <div style='float: left;'><input type="submit" value="Értékelés küldése" <!--TODO--> /></div>
+        </div>
+    </div>
+</body>
+</html>

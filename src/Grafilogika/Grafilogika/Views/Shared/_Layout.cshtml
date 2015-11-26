@@ -18,13 +18,26 @@
                     @*<section id="login">
                         @Html.Partial("_LoginPartial")
                     </section>*@
+                    @if (Request.IsAuthenticated)
+                    {
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Kezdőlap", "Index", "Home")</li>
                             <li>@Html.ActionLink("Játékok keresése", "Browse", "Browse")</li>
-                            <li>@Html.ActionLink("Játék Feltöltése", "Upload", "Upload")</li>
+                            @{ if (!HttpContext.Current.User.Identity.Name.Equals("Vendég")) {
+                                <li>@Html.ActionLink("Játék feltöltése", "Upload", "Upload")</li>
+                                }
+                            }
+                            <li>@Html.DropDownList("url", new SelectList(new[]
+                                {
+                                    new SelectListItem { Text = "Profilom", Value = Url.Action("MyProfile", "Home") },
+                                    new SelectListItem { Text = "Kilépés", Value = Url.Action("Logout", "Home") }
+                                }, "Value", "Text"),
+                                @HttpContext.Current.User.Identity.Name,
+                                new { id = "urlddl" })</li>
                         </ul>
                     </nav>
+                    }
                 </div>
             </div>
         </header>
@@ -43,6 +56,17 @@
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqwidgets")
         @RenderSection("scripts", required: false)
     </body>
 </html>
+<script>
+            $(document).ready(function () {
+                $('#urlddl').change(function () {
+                    var url = $(this).val();
+                    if (url != null && url != '') {
+                        window.location.href = url;
+                    }
+                });
+            });
+</script>
