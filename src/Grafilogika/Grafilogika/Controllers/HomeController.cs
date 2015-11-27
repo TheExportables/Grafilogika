@@ -98,7 +98,7 @@ namespace Grafilogika.Controllers {
             var allUser = DBManager.GetAllUsers();
             foreach (var item in allUser)
             {
-                if (item.Name.Equals((model.UserName, StringComparison.InvariantCultureIgnoreCase))
+                if (item.Name.Equals(model.UserName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     ModelState.AddModelError("nameError","Ilyen nevű felhasználó már létezik");
                 }
