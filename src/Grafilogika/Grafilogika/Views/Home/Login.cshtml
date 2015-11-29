@@ -20,10 +20,21 @@
             e.preventDefault();
             return false;
         });
+
+        $(document).keypress(keypressHandler);
+        $("#UserName, #PassWord").keypress(keypressHandler);
     });
+
+    function keypressHandler(e) {
+        if (e.which == 13) {
+            e.preventDefault(); //stops default action: submitting form
+            $(this).blur();
+            $('#LoginButton').focus().click();//give your submit an ID
+        }
+    }
 </script>
 <section id="loginForm">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(new { id = "LoginForm2" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
@@ -46,7 +57,7 @@
                     @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
                 </li>
             </ol>
-            <input type="submit" value="Bejelentkezés" />
+            <input type="submit" id="LoginButton" value="Bejelentkezés" />
         </fieldset>
         <p>
             @Html.ActionLink("Regisztrálj", "Register"), ha még nincs fiókod!            

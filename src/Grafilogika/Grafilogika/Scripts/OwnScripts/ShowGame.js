@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var steps = [];
+
+$(document).ready(function () {
     var gameString = $("#gameString").val();
     var gameRows = gameString.split(";");
     var cols = gameRows[0].length;
@@ -33,7 +35,14 @@
             var newcol = $('<td class="game" />');
             newcol.height(newrow.height());
             newcol.width(newrow.width());
-            var button = $('<input type="button"/>').addClass('gamecell').click(function () { $(this).toggleClass('black'); });
+            if ((i + 1) % 5 == 0 && (j + 1) % 5 == 0)
+                var button = $('<input type="button" style="border-bottom: solid #000000; border-right: solid #000000;"/>').addClass('gamecell').click(function () { $(this).toggleClass('black'); steps.push($(this)); document.getElementById("undobtn").disabled = false; });
+            else if ((i + 1) % 5 == 0)
+                var button = $('<input type="button" style="border-bottom: solid #000000;"/>').addClass('gamecell').click(function () { $(this).toggleClass('black'); steps.push($(this)); document.getElementById("undobtn").disabled = false; });
+            else if ((j + 1) % 5 == 0)
+                var button = $('<input type="button" style="border-right: solid #000000;"/>').addClass('gamecell').click(function () { $(this).toggleClass('black'); steps.push($(this)); document.getElementById("undobtn").disabled = false; });
+            else
+                var button = $('<input type="button" />').addClass('gamecell').click(function () { $(this).toggleClass('black'); steps.push($(this)); document.getElementById("undobtn").disabled = false; });
             button.id = "button" + i + j;
             button.width(newcol.width());
             button.height(newcol.height());
@@ -87,10 +96,10 @@ function checkSolution() {
         var columns = $(this).find('td');
         columns.each(function () {
             var button = $(this).find(":button");
-                if (button.hasClass("black"))
-                    str += 1;
-                else if(button.hasClass("gamecell"))
-                    str += 0;
+            if (button.hasClass("black"))
+                str += 1;
+            else if (button.hasClass("gamecell"))
+                str += 0;
         });
         if (str.length > 0) {
             str += ";";
@@ -98,10 +107,10 @@ function checkSolution() {
     });
     if (str.indexOf("1") != (-1)) {
         var gname = $("#gamename").text();
-        var uploadername = $("#uploadername").text();
+        var username = $("#currentuser").text();
         $.ajax({
             url: '/Game/CheckGameSolution',
-            data: { 'gameName': gname, 'gameSolution': str, 'userName': uploadername },
+            data: { 'gameName': gname, 'gameSolution': str, 'userName': username },
             type: 'POST',
             success: function (result) {
                 if (result.indexOf("Rossz") > -1) {
@@ -119,10 +128,20 @@ function checkSolution() {
                         }
                     });
                 }
-                
+
             }
         });
         return;
-    }else
+    } else
         alert("Üres megoldást nem lehet beküldeni!");
+}
+
+function undoLastStep() {
+    if (steps.length != 0) {
+        var laststep = steps.pop();
+        laststep.toggleClass('black');
+    }
+    if (steps.length == 0) {
+        document.getElementById("undobtn").disabled = true;
+    }
 }

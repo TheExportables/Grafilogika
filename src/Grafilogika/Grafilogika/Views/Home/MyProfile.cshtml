@@ -11,6 +11,8 @@
             <div class="content-wrapper">
                 <hgroup class="title">
                     <h1>Profilom</h1>
+                    <h3>Jól megoldott játékok száma: @Model.currentUser.Wins</h3>
+                    <h3>Rossz megoldások száma: @Model.currentUser.Mistakes</h3>
                 </hgroup>
                 @{ if ((bool)@Session["Isadmin"])
                     {
@@ -102,9 +104,9 @@
                                     <td>
                                         <input type="submit" value="Törlés" />
                                     </td>
-                                  }
+                                            }
                             </tr>
-                        }
+                                            }
                     </table>
                 </div>
                 <div style="overflow: auto">
@@ -115,7 +117,7 @@
                             <ol>
                                 <li>
                                     @Html.LabelFor(m => m.pwChange.OldPassword)
-                                    @Html.PasswordFor(m => m.pwChange.OldPassword, new { maxlength = "100", id= "oldpw" })
+                                    @Html.PasswordFor(m => m.pwChange.OldPassword, new { maxlength = "100", id = "oldpw" })
                                 </li>
                                 <li>
                                     @Html.LabelFor(m => m.pwChange.NewPassword)
@@ -128,6 +130,11 @@
                             </ol>
                             <input type="submit" onclick="changePassword()" value="Jelszó megváltoztatása" />
                         </fieldset>
+                    @{ if ((bool)@Session["Isadmin"])
+                        {
+                             <div style="float:right;">@Html.ActionLink("Adminok beállítása", "AdminPage")</div>
+                        }
+                    }
                 </div>
             </div>
         </div> 

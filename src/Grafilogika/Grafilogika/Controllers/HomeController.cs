@@ -166,6 +166,7 @@ namespace Grafilogika.Controllers {
                 Session["Isadmin"] = true;
                 var userGames = DBManager.GetAllGames();
                 pm.games = userGames;
+                pm.currentUser = user;
                 return View(pm);
             }
             else
@@ -173,6 +174,7 @@ namespace Grafilogika.Controllers {
                 Session["Isadmin"] = false;
                 var userGames = DBManager.GetGamesByUploader(User.Identity.Name);
                 pm.games = userGames;
+                pm.currentUser = user;
                 return View(pm);
             }
         }
@@ -268,6 +270,19 @@ namespace Grafilogika.Controllers {
                 ViewBag.Message = "A felhasználónévhez regisztrált e-mail cím nincs verifikálva!";
                 return View();
             }
+        }
+
+        public ActionResult AdminPage()
+        {
+            var allUsers = DBManager.GetAllUsers();
+            return View(allUsers);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeAdmins(Users selectedUser)
+        {
+            DBManager.UpdateUserAdmin(selectedUser.Name);
+            return RedirectToAction("AdminPage","Home");
         }
 
         public bool IsValid(string _username, string _password)

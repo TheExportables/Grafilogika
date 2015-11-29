@@ -47,14 +47,25 @@ function sendGame() {
             var gname = document.getElementById("gamename").value;
             $.ajax({
                 url: '/Upload/CreateOwnGameProcess',
-                data: { 'gameName': gname, 'gameSolution': str},
+                data: { 'gameName': gname, 'gameSolution': str },
                 type: 'POST',
                 success: function (result) {
-                    alert(result);
+                    if (result.indexOf("Sikeres") > -1) {
+                        var url = "/Upload/UploadGameProcess";
+                        window.location.href = url;
+                    }
+                    else {
+                        $.fancybox({
+                            content: result,
+                        });
+                    }
                 }
             });
             return;
         }
-    }else
-    alert("Üres pályát nem lehet a szerverre küldeni!");
+    } else {
+        $.fancybox({
+            content: "Üres pályát nem lehet a szerverre küldeni!",
+        });
+    }
 }

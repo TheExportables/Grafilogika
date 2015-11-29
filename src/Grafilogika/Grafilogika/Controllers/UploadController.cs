@@ -57,6 +57,11 @@ namespace Grafilogika.Controllers
             return View();
         }
 
+        public ActionResult UploadGameProcess()
+        {
+            return View("UploadGameProcess");
+        }
+
         [HttpPost]
         public ActionResult UploadGame(HttpPostedFileBase file, String gameName)
         {

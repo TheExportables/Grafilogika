@@ -21,7 +21,9 @@ function changePassword() {
     var cPw = $("#cpw").val();
     if (newPw != cPw)
     {
-        alert("A megadott jelszavak nem egyeznek.");
+        $.fancybox({
+            content: "A megadott jelszavak nem egyeznek.",
+        });
         return;
     }
     $.ajax({
@@ -29,7 +31,9 @@ function changePassword() {
         data: { 'OldPassword': oldPw, 'NewPassword': newPw, 'ConfirmPassword': cPw },
         type: 'POST',
         success: function (result) {
-            alert(result);
+            $.fancybox({
+                content: result,
+            });
             if (result.indexOf("sikeresen") > -1)
             {
                 $("#oldpw").val("");

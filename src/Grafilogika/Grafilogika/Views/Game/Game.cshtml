@@ -26,11 +26,11 @@
     input[type="submit"]:disabled,
     input[type="button"]:disabled,
     button:disabled {
-            cursor: default;
-            pointer-events: none;
-            color: #c0c0c0;
-            background-color: #ffffff;
-        }
+        cursor: default;
+        pointer-events: none;
+        color: #c0c0c0;
+        background-color: #ffffff;
+    }
 </style>
 <!DOCTYPE html>
 
@@ -48,14 +48,17 @@
     <div style="display:flex;justify-content:center;align-items:center;">
 
         <input type="hidden" value="@Session["GameString"]" id="gameString" />
-        <table id="gametable" class="game" style="margin: 0px; padding: 0px;">
-
-        </table>
+        <table id="gametable" class="game" style="margin: 0px; padding: 0px;"></table>
         <label style="display:none" id="gamename">@Session["Gamename"]</label>
         <label style="display:none" id="uploadername">@Session["Uploadername"]</label>
+        <label style="display:none" id="currentuser">@HttpContext.Current.User.Identity.Name</label>
     </div>
     <div style="display:flex;justify-content:flex-end;align-items:flex-end;">
-        <input id="sendbtn" type="submit" value="Megoldás beküldése" onclick="checkSolution()" />
+        <div>
+            <br />
+            <input id="undobtn" type="button" disabled="disabled" value="Előző lépés visszavonása" onclick="undoLastStep()" />
+            <input id="sendbtn" type="submit" value="Megoldás beküldése" onclick="checkSolution()" />
+        </div>
     </div>
 </body>
 </html>

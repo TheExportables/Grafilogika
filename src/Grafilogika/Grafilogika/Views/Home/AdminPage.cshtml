@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Grafilogika.Models.Users>
+    @{
+        ViewBag.Title = "AdminPage";
+    }
+    @section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Adminok beállítása</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title></title>
+    </head>
+    <body>
+        <div>
+            <table>
+            <tr>
+                <td>
+                    Felhasználó
+                </td>
+                <td>
+                    Admin
+                </td>
+                <td>
+                </td>
+            </tr>
+
+          @foreach (var item in Model)
+            {
+
+                    <tr>
+                            @using (Html.BeginForm("ChangeAdmins", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <td>
+                                @item.Name
+                                @Html.TextBox("Name", @item.Name, new { style = "display: none;" })
+                                </td>
+                                <td>
+                                @item.Isadmin
+                                @Html.TextBox("Uploader", @item.Isadmin, new { style = "display: none;" })
+                                </td>
+                                @Html.TextBox("Wins", @item.Wins, new { style = "display: none;" })
+                                @Html.TextBox("Mistakes", @item.Mistakes, new { style = "display: none;" })
+                                @Html.TextBox("Email", @item.Email, new { style = "display: none;" })
+                                @Html.TextBox("Isverified", @item.Isverified, new { style = "display: none;" })
+                                <td>
+                                @if (item.Isadmin == 1)
+                                {
+                                    <input type="submit" style="width:30px" value="-" />
+                                }
+                                else if (item.Isadmin == 0)
+                                {
+                                    <input type="submit" style="width:30px" value="+" />
+                                }
+                                </td>
+                            }
+                    </tr>
+
+            }
+        </table>
+        </div>
+    </body>
+</html>

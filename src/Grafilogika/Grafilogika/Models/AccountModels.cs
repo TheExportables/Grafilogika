@@ -67,6 +67,7 @@ namespace Grafilogika.Models {
     {
         public IEnumerable<Grafilogika.Models.Games> games{ get; set; }
         public LocalPasswordModel pwChange { get; set; }
+        public Users currentUser { get; set; }
     }
 
     public class RegisterModel {

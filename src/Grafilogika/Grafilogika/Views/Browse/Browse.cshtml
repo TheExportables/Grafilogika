@@ -22,6 +22,8 @@
         <meta name="viewport" content="width=device-width" />
         <title></title>
         <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+        <script src="~/Scripts/BootStrap/bootstrap.js"></script>
+        @Styles.Render("~/Content/bootstrap/bootstrap.css")
         @*<script type="text/javascript" src="~/Scripts/jqwidgets/jqxcore.js"></script>
         <script type="text/javascript" src="~/Scripts/jqwidgets/jqxdata.js"></script>
         <script type="text/javascript" src="~/Scripts/jqwidgets/jqxbuttons.js"></script>
@@ -46,8 +48,8 @@
     </body>*@
     <body>
        <div>
-        <table>
-            <tr>
+        <table class="table table-hover">
+            <tr class="text-center h4">
                 <td>
                     Játék neve
                 </td>
@@ -58,12 +60,13 @@
                     Játék pontszáma
                 </td>
                 <td></td>
+                <td></td>
             </tr>
 
           @foreach (var item in Model)
             {
 
-                    <tr>
+                    <tr class="text-center">
                             @using (Html.BeginForm("LoadGame", "Browse", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 <td>

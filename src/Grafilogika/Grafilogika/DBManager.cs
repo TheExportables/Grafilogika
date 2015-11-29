@@ -169,6 +169,25 @@ namespace Grafilogika
                 }
             }
         }
+
+        public static void DeleteGameByName(string gameName)
+        {
+            using (var dbCtx = new GrafilogikaDBEntities())
+            {
+                try
+                {
+                    var result = (from g in dbCtx.Games
+                                  where g.Name == gameName
+                                  select g).First();
+                    dbCtx.Games.Remove(result);
+                    dbCtx.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
         #endregion
 
         #region UserQuery
@@ -302,22 +321,30 @@ namespace Grafilogika
             }
         }
 
-        public static void DeleteGameByName(string gameName)
+        public static void UpdateUserAdmin(string userName)
         {
-            using (var dbCtx = new GrafilogikaDBEntities())
+            try
             {
-                try
+                using (var dbCtx = new GrafilogikaDBEntities())
                 {
-                    var result = (from g in dbCtx.Games
-                                  where g.Name == gameName
-                                  select g).First();
-                    dbCtx.Games.Remove(result);
+                    var result = (from u in dbCtx.Users
+                                  where u.Name == userName
+                                  select u).First();
+                    if (result.Isadmin == 1)
+                    {
+                        result.Isadmin = 0;
+                    }
+                    else if (result.Isadmin == 0)
+                    {
+                        result.Isadmin = 1;
+                    }
+                    dbCtx.Entry(result).State = EntityState.Modified;
                     dbCtx.SaveChanges();
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
         #endregion

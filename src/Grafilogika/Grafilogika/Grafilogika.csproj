@@ -582,6 +582,7 @@
     <Content Include="Views\Home\Verify.cshtml" />
     <Content Include="Views\Home\_ChangePasswordResult.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Home\AdminPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
